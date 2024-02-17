@@ -1,0 +1,20 @@
+Create an interactive webpage for Course management system for courses like HTML,
+CSS, C, C++, JAVA, PHP using different types of stylesheets (use inline, internal and
+external CSS). The webpage should display
+
+3. At the top right corner of the webpage, create a link for Signup/Login.. when you
+click this login form has to open.
+
+4. Display some description about your webpage. Set suitable font, text and color
+properties for the content
+
+5. List of courses in table form using images. Apply border properties for the table.
+
+6. Fix an image in the webpage at a particular position. When you scroll the page,
+that image must be visible. When you click the image, it should go to the course
+registration form. The course registration form has to display within the webpage
+itself in the right side. Form has to be displayed within a border.
+
+7. In the left side of the webpage at a particular part use animation and
+transformations to display the courses that you offer. The images of the courses
+have to change at a particular interva
