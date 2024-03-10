@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .error {
+            border: 2px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Exercise 5 - Form Validation</h1>
+    <table>
+        <tr>
+            <td>User ID (5 to 7 characters)</td>
+            <td><input type="text" name="" id="userid"></td>
+        </tr>
+        <tr>
+            <td>Password (7 to 12 Characters)</td>
+            <td><input type="password" name="" id="password"></td>
+        </tr>
+        <tr>
+            <td>Name (Alphabetical Characters)</td>
+            <td><input type="text" name="" id="name"></td>
+        </tr>
+        <tr>
+            <td>Address (Alphanumeric Characters)</td>
+            <td><input type="text" name="" id="address"></td>
+        </tr>
+        <tr>
+            <td>Country (Must Select a Country)</td>
+            <td>
+                <select name="" id="selectionlist">
+                    <option value="">Please select a country</option>
+                    <option value="India">India</option>
+                    <option value="USA">USA</option>
+                    <option value="Russia">Russia</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>ZIP Code (Alphanumeric Characters)</td>
+            <td><input type="text" name="" id="zipcode"></td>
+        </tr>
+        <tr>
+            <td>Email (Enter Valid Email)</td>
+            <td><input type="email" name="" id="email"></td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>
+                <input type="radio" name="gender" id="male">Male
+                <input type="radio" name="gender" id="female">Female
+            </td>
+            <td style="color: red;"><span id="message_gender"></span></td>
+        </tr>
+        <tr>
+            <td>Language (Optional)</td>
+            <td>
+                <input type="checkbox" name="language" id="language1">English
+                <input type="checkbox" name="language" id="language2">Non-English
+            </td>
+        </tr>
+        <tr>
+            <td>About</td>
+            <td><textarea name="" id="abouttext" cols="20" rows="0"></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button type="button" onclick="check()">Submit</button></td>
+        </tr>
+    </table>
+
+    <script>
+        function check() {
+            const useridregex = /^[A-Za-z_0-9   ]+$/;
+            const passwordregex = /^[A-Za-z0-9]+$/;
+            const nameregex = /^[A-Za-z\s]+$/;
+            const addressregex = /^[A-Za-z0-9\s]+$/;
+            const zipcoderegex = /^[A-Za-z0-9]+$/;
+            const emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            var useridcheck = document.getElementById('userid');
+            var passcheck = document.getElementById('password');
+            var name = document.getElementById('name');
+            var address = document.getElementById('address');
+            var country = document.getElementById('selectionlist');
+            var zipcode = document.getElementById('zipcode');
+            var email = document.getElementById('email');
+            var gender = document.querySelector('input[name="gender"]:checked');
+            var language1 = document.getElementById('language1');
+            var language2 = document.getElementById('language2');
+            var abouttext = document.getElementById('abouttext');
+
+            // Reset all error messages and remove error class from all input fields
+            document.querySelectorAll('[id^="message_"]').forEach(span => span.innerHTML = '');
+            document.querySelectorAll('input, select, textarea').forEach(input => input.classList.remove('error'));
+
+            if (useridcheck.value == "" || useridcheck.value.length < 5 || useridcheck.value.length > 7 || !useridregex.test(useridcheck.value)) {
+                useridcheck.classList.add('error');
+            }
+
+            if (passcheck.value == "" || passcheck.value.length < 7 || passcheck.value.length > 12 || !passwordregex.test(passcheck.value)) {
+                passcheck.classList.add('error');
+            }
+
+            if (name.value == "" || !nameregex.test(name.value)) {
+                name.classList.add('error');
+            }
+
+            if (address.value == "" || !addressregex.test(address.value)) {
+                address.classList.add('error');
+            }
+
+            if (country.value == "") {
+                country.classList.add('error');
+            }
+
+            if (zipcode.value == "" || !zipcoderegex.test(zipcode.value)) {
+                zipcode.classList.add('error');
+            }
+
+            if (email.value == "" || !emailregex.test(email.value)) {
+                email.classList.add('error');
+            }
+
+            if (!gender) {
+                document.getElementById('message_gender').innerHTML = 'Please select Gender';
+            }
+
+            if (abouttext.value == "") {
+                abouttext.classList.add('error');
+            }
+        }
+    </script>
+</body>
+
+</html>
