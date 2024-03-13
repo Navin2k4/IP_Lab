@@ -1,0 +1,89 @@
+<!-- 1. Create a button that changes the background color of a div when clicked.
+2. Create two textboxes and one button with + on it. On click of the button you should
+display sum of the two entered numbers in textbox. Similarly add Subtract, Multiple and
+Division buttons -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 6</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $("#change-bg").click(function () {
+                var letters = "0123456789ABCDEF";
+                var color = "#";
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                $(".newdiv").css("background-color", color);
+            });
+
+            $(".operation-btn").click(function () {
+                const val1 = parseInt($("#val1").val());
+                const val2 = parseInt($("#val2").val());
+                if (isNaN(val1) || isNaN(val2)) {
+                    alert("Enter valid numeric values");
+                    return false;
+                }
+                const operation = $(this).data('operation');
+                let result;
+                switch (operation) {
+                    case 'Addition':
+                        result = val1 + val2;
+                        break;
+                    case 'Subtraction':
+                        result = val1 - val2;
+                        break;
+                    case 'Multiplication':
+                        result = val1 * val2;
+                        break;
+                    case 'Division':
+                        if (val2 === 0) {
+                            alert("Denominator cannot be 0");
+                            return false;
+                        }
+                        result = val1 / val2;
+                        break;
+                }
+                $("#resultinp").val(result);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <style>
+        .newdiv {
+            height: 200px;
+            width: 300px;
+            border: 1px solid black;
+        }
+
+        .calcbtn {
+            padding: 10px;
+            font-weight: bolder;
+            height: 50px;
+            width: 50px;
+            margin: 5px;
+        }
+    </style>
+    <center>
+        <h2 id="title--text">Exercise 6</h2>
+        <div class="newdiv"></div><br>
+        <button id="change-bg">Click the button to change the background color of the division</button><br><br>
+        Enter Value 1 : <input type="text" name="val1" id="val1"><br><br>
+        Enter Value 2 : <input type="text" name="val2" id="val2"><br><br>
+        Result : <input type="text" name="resultinp" id="resultinp"><br><br>
+        <button class="calcbtn operation-btn" data-operation="Addition"> + </button><button
+            class="calcbtn operation-btn" data-operation="Subtraction"> - </button> <br>
+        <button class="calcbtn operation-btn" data-operation="Multiplication"> * </button><button
+            class="calcbtn operation-btn" data-operation="Division"> / </button>
+    </center>
+</body>
+
+</html>
