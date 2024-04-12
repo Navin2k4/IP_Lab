@@ -1,0 +1,88 @@
+Student.jsp
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Student Information</title>
+</head>
+<body>
+    <h2>Student Information</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Grade</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="student" items="${students}">
+                <tr>
+                    <td>${student.name}</td>
+                    <td>${student.grade}</td>
+                    <td>${student.email}</td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+</body>
+</html>
+
+
+Student.java
+
+package com.example.model;
+
+public class Student {
+    private String name;
+    private int grade;
+    private String email;
+
+    public Student(String name, int grade, String email) {
+        this.name = name;
+        this.grade = grade;
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+}
+
+
+StudentController.java
+
+
+import com.example.model.Student;
+import java.io.IOException;
+import java.util.ArrayList;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet("/student")
+public class StudentController extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<Student> students = new ArrayList<>();
+        students.add(new Student("John Doe", 90, "john.doe@example.com"));
+        students.add(new Student("Jane Smith", 85, "jane.smith@example.com"));
+        students.add(new Student("Bob Johnson", 95, "bob.johnson@example.com"));
+        students.sort((s1, s2) -> s1.getName().compareTo(s2.getName()));
+        request.setAttribute("students", students);
+        request.getRequestDispatcher("student.jsp").forward(request, response);
+    }
+}
