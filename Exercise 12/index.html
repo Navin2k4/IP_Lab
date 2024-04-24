@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details</title>
+    <style>
+        .container {
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+            margin: 0px auto;
+            padding-top: 40px;
+        }
+
+        #bookDetails {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Book Details</h1>
+        <label for="bookID">Enter Book ID:</label>
+        <input type="text" id="bookID">
+        <button onclick="getBookDetails()">Get Details</button>
+
+        <div id="bookDetails"></div>
+    </div>
+    <script>
+        function getBookDetails() {
+            var bookID = document.getElementById("bookID").value;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    parseBookDetails(this, bookID);
+                }
+            };
+            xhttp.open("GET", "library.xml", true);
+            xhttp.send();
+        }
+
+        function parseBookDetails(xml, bookID) {
+            var xmlDoc = xml.responseXML;
+            var books = xmlDoc.getElementsByTagName("book");
+            for (var i = 0; i < books.length; i++) {
+                if (books[i].getAttribute("id") == bookID) {
+                    var title = books[i].getElementsByTagName("title")[0].childNodes[0].nodeValue;
+                    var author = books[i].getElementsByTagName("author")[0].childNodes[0].nodeValue;
+                    var genre = books[i].getElementsByTagName("genre")[0].childNodes[0].nodeValue;
+                    var year = books[i].getElementsByTagName("year")[0].childNodes[0].nodeValue;
+
+                    var bookDetailsDiv = document.getElementById("bookDetails");
+                    bookDetailsDiv.innerHTML = "<h2>Book Details</h2>" +
+                        "<p><strong>Title:</strong> " + title + "</p>" +
+                        "<p><strong>Author:</strong> " + author + "</p>" +
+                        "<p><strong>Genre:</strong> " + genre + "</p>" +
+                        "<p><strong>Year:</strong> " + year + "</p>";
+                    return;
+                }
+            }
+            var bookDetailsDiv = document.getElementById("bookDetails");
+            bookDetailsDiv.innerHTML = "<p>Book not found.</p>";
+        }
+    </script>
+</body>
+
+</html>
