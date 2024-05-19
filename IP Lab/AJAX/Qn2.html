@@ -1,0 +1,97 @@
+● Create an XML file containing a 5-day weather forecast for different cities,
+including details like date, temperature,humidity, and description.
+Use AJAX to fetch and display the weather forecast for a selected city.
+<?xml version="1.0" encoding="UTF-8"?>
+<weather>
+    <city name="New York">
+        <forecast>
+            <date>2024-05-19</date>
+            <temperature>22</temperature>
+            <humidity>60</humidity>
+            <description>Sunny</description>
+        </forecast>
+        <forecast>
+            <date>2024-05-20</date>
+            <temperature>20</temperature>
+            <humidity>55</humidity>
+            <description>Partly Cloudy</description>
+        </forecast>
+    </city>
+    <city name="Los Angeles">
+        <forecast>
+            <date>2024-05-19</date>
+            <temperature>25</temperature>
+            <humidity>65</humidity>
+            <description>Clear</description>
+        </forecast>
+        <forecast>
+            <date>2024-05-20</date>
+            <temperature>27</temperature>
+            <humidity>70</humidity>
+            <description>Sunny</description>
+        </forecast>
+    </city>
+</weather>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+</head>
+
+<body>
+    <h1>5-Day Weather Forecast</h1>
+    <label for="citySelect">Select City:</label>
+    <select id="citySelect" onchange="fetchWeather()">
+        <option value="New York">New York</option>
+        <option value="Los Angeles">Los Angeles</option>
+    </select>
+    <div id="weatherList"></div>
+
+    <script>
+        function fetchWeather() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'weather.xml', true);
+            xhr.onload = function () {
+                if (this.status === 200) {
+                    displayWeather(this.responseXML);
+                }
+            };
+            xhr.send();
+        }
+
+        function displayWeather(xml) {
+            const city = document.getElementById('citySelect').value;
+            const cityNode = Array.from(xml.getElementsByTagName('city')).find(node => node.getAttribute('name') === city);
+            const forecasts = cityNode.getElementsByTagName('forecast');
+            const weatherList = document.getElementById('weatherList');
+            weatherList.innerHTML = '';
+
+            for (let i = 0; i < forecasts.length; i++) {
+                const date = forecasts[i].getElementsByTagName('date')[0].childNodes[0].nodeValue;
+                const temperature = forecasts[i].getElementsByTagName('temperature')[0].childNodes[0].nodeValue;
+                const humidity = forecasts[i].getElementsByTagName('humidity')[0].childNodes[0].nodeValue;
+                const description = forecasts[i].getElementsByTagName('description')[0].childNodes[0].nodeValue;
+
+                const forecastDiv = document.createElement('div');
+                forecastDiv.classList.add('forecast');
+
+                forecastDiv.innerHTML = `
+                    <h2>${date}</h2>
+                    <p>Temperature: ${temperature}°C</p>
+                    <p>Humidity: ${humidity}%</p>
+                    <p>Description: ${description}</p>
+                `;
+
+                weatherList.appendChild(forecastDiv);
+            }
+        }
+
+        window.onload = fetchWeather;
+    </script>
+</body>
+
+</html>

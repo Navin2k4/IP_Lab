@@ -1,0 +1,77 @@
+<!-- ● Develop a web page with a form for student registration. The form should include fields for Full Name, Age, Email,
+Student ID, and Major. Write a client-side script to validate the following:
+✔ Full Name must not be empty and should contain only alphabetic characters.
+✔ Age must be a number between 18 and 60.
+✔ Email must include '@' and '.'.
+✔ Student ID must be alphanumeric.
+✔ Major must be selected from a dropdown list. -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+    <script>
+        function validateStudentRegistration() {
+            const nameRegex = /^[a-zA-Z\s]+$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const studentIdRegex = /^[a-zA-Z0-9]+$/;
+            const fullName = document.getElementById('fullName').value;
+            const age = document.getElementById('age').value;
+            const isAgeValid = age >= 18 && age <= 60;
+            const email = document.getElementById('email').value;
+            const studentId = document.getElementById('studentId').value;
+            const major = document.getElementById('major').value;
+            if (!nameRegex.test(fullName)) {
+                alert('Please enter a valid Full Name with alphabetic characters only.');
+                return false;
+            }
+            if (!isAgeValid || isNaN(age)) {
+                alert('Age must be a number between 18 and 60.');
+                return false;
+            }
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid Email address.');
+                return false;
+            }
+            if (!studentIdRegex.test(studentId)) {
+                alert('Student ID must be alphanumeric.');
+                return false;
+            }
+            if (major === "") {
+                alert('Please select a Major.');
+                return false;
+            }
+            alert('Form submitted successfully!');
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+    <h2>Student Registration Form</h2>
+    <form onsubmit="return validateStudentRegistration()">
+        <label for="fullName">Full Name:</label>
+        <input type="text" name="fullName" id="fullName"><br>
+        <label for="age">Age:</label>
+        <input type="text" name="age" id="age"><br>
+        <label for="email">Email:</label>
+        <input type="text" name="email" id="email"><br>
+        <label for="studentId">Student ID:</label>
+        <input type="text" name="studentId" id="studentId"><br>
+        <label for="major">Major:</label>
+        <select name="major" id="major">
+            <option value="">--Select Major--</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Physics">Physics</option>
+            <option value="Chemistry">Chemistry</option>
+            <option value="Biology">Biology</option>
+        </select><br>
+        <input type="submit" value="Register">
+    </form>
+</body>
+
+</html>

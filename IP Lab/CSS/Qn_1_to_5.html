@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: myFirstFont;
+            src: url(Montserrat-Light.ttf);
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        p {
+            font-family: Arial;
+            color: blue;
+            font-size: 16px;
+            line-height: 1.5;
+            background-color: lightgray;
+        }
+
+        .box {
+            width: 300px;
+            padding: 20px;
+            border: 2px solid black;
+            margin: 10px;
+            background-color: lightblue;
+        }
+
+        .qn3 {
+            width: 100px;
+            height: 50px;
+            background-color: green;
+            color: white;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .qn3:hover {
+            background-color: darkgreen;
+            color: yellow;
+        }
+
+        .g-fonts {
+            font-family: "Montserrat", sans-serif;
+            font-size: 24px;
+            text-shadow: 1px 1px 2px black;
+            color: purple;
+        }
+
+        .f-face {
+            font-family: myFirstFont;
+            font-size: 24px;
+            text-shadow: 1px 1px 2px black;
+            color: purple;
+        }
+
+        .qn5 {
+            background-color: orange;
+            padding: 10px 20px;
+            font-size: 18px;
+            transition: background-color 0.4s ease-in-out;
+        }
+
+        .qn5:hover {
+            background-color: darkorange;
+        }
+    </style>
+</head>
+
+<body>
+<!--
+1. Style a simple paragraph.
+● Set the font family to Arial.
+● Change the text color to blue.
+● Set the font size to 16px.
+● Add a line height of 1.5.
+● Apply a background color of lightgray. -->
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+        Neque quos, doloremque minima distinctio nisi iste
+        harum, animi provident quam architecto maiores perferendis
+        deserunt temporibus dignissimos, aperiam voluptas
+        ducimus pariatur sed!
+    </p>
+
+    <!-- 2. Style a box using padding, margin, and border.
+● Set the width to 300px.
+● Add a padding of 20px.
+● Apply a border of 2px solid black.
+● Add a margin of 10px.
+● Set a background color to lightblue. -->
+    <div class="box"></div>
+
+    <!-- 3. Apply hover effects to a button.
+● Set the initial background color to green.
+● Change the background color to darkgreen on hover.
+● Set the initial text color to white.
+● Change the text color to yellow on hover.
+● Add a transition effect of 0.3s for the background color. -->
+    <button class="qn3">Question 3</button>
+
+    <!-- 4. Apply a custom font and shadow to a header.
+● Import a custom font using @font-face or Google Fonts.
+● Apply the custom font to a header.
+● Set the font size to 24px.
+● Add a text shadow of 1px 1px 2px black.
+● Change the header’s color to purple. -->
+    <header class="g-fonts">This is a Header element using Google fonts</header>
+    <header class="f-face">This is a Header element using font-face</header>
+
+    <!-- 5. Create a button with animation.
+● Set the initial background color of the button to orange.
+● Change the background color to darkorange on hover.
+● Add a transition of 0.4s for the background color.
+● Set the font size to 18px.
+● Add padding of 10px 20px to the button. -->
+    <button class="qn5">Question 5</button>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!-- ● Develop a web page that allows the user to enter all the details of the passenger(name, age, emailid , gender).
+Write a client side scripting code to validate the emailid ,age and gender,
+where email id should consists of the special symbol @and period(.),
+where age between 1 to 100 and gender is male or female -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passenger Form Validation</title>
+    <script>
+        function validatePassenger() {
+            const nameRegex = /^[a-zA-Z\s]+$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const age = document.getElementById('age').value;
+            const isAgeValid = age > 1 && age < 100;
+            const male = document.getElementById('male');
+            const female = document.getElementById('female');
+
+            if (!nameRegex.test(name)) {
+                alert('Please enter a valid name.');
+                return false;
+            }
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                return false;
+            }
+            if (!isAgeValid) {
+                alert('Age should be between 1 and 100.');
+                return false;
+            }
+            if (!(male.checked || female.checked)) {
+                alert('Please select a gender.');
+                return false;
+            }
+            alert('Form submitted successfully!');
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h2>Form Validation Program</h2>
+    <form onsubmit="return validatePassenger()">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name"><br>
+        <label for="age">Age:</label>
+        <input type="number" name="age" id="age"><br>
+        <label for="email">Email:</label>
+        <input type="text" name="email" id="email"><br>
+        <input type="radio" name="gender" id="male" value="male"> Male
+        <input type="radio" name="gender" id="female" value="female"> Female<br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

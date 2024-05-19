@@ -1,0 +1,61 @@
+<!-- ● Create a form for event registration with fields for Name, Email, Phone Number, and Event Date. Implement validation
+rules to ensure:
+✔ Name cannot be empty.
+✔ Email must include '@' and '.'.
+✔ Phone Number must be in the format (123) 456-7890.
+✔ Event Date must be in the future. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration Form</title>
+    <script>
+        function validateEventRegistration() {
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const phoneRegex = /^\(\d{3}\) \d{3}-\d{4}$/;
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const eventDate = document.getElementById('eventDate').value;
+
+            if (name.trim() === "") {
+                alert('Name cannot be empty.');
+                return false;
+            }
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid Email address.');
+                return false;
+            }
+            if (!phoneRegex.test(phone)) {
+                alert('Phone Number must be in the format (123) 456-7890.');
+                return false;
+            }
+            const currentDate = new Date();
+            const selectedDate = new Date(eventDate);
+            if (selectedDate <= currentDate) {
+                alert('Event Date must be in the future.');
+                return false;
+            }
+            alert('Form submitted successfully!');
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h2>Event Registration Form</h2>
+    <form onsubmit="return validateEventRegistration()">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name"><br>
+        <label for="email">Email:</label>
+        <input type="text" name="email" id="email"><br>
+        <label for="phone">Phone Number:</label>
+        <input type="text" name="phone" id="phone" placeholder="(123) 456-7890"><br>
+        <label for="eventDate">Event Date:</label>
+        <input type="date" name="eventDate" id="eventDate"><br>
+        <input type="submit" value="Register">
+    </form>
+</body>
+</html>

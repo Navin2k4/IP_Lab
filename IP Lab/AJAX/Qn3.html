@@ -1,0 +1,95 @@
+● Build a movie database search application that retrieves
+movie information from an XML file using AJAX. Allow users to
+search for movies by title, genre, or release year.
+<?xml version="1.0" encoding="UTF-8"?>
+<movies>
+    <movie>
+        <title>Movie 1</title>
+        <genre>Action</genre>
+        <releaseYear>2021</releaseYear>
+    </movie>
+    <movie>
+        <title>Movie 2</title>
+        <genre>Drama</genre>
+        <releaseYear>2020</releaseYear>
+    </movie>
+    <movie>
+        <title>Movie 3</title>
+        <genre>Comedy</genre>
+        <releaseYear>2019</releaseYear>
+    </movie>
+</movies>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Database</title>
+</head>
+
+<body>
+    <h1>Movie Database</h1>
+    <label for="search">Search:</label>
+    <input type="text" id="search" placeholder="Search by title, genre, or year">
+    <button onclick="searchMovies()">Search</button>
+    <div id="movieList"></div>
+
+    <script>
+        function fetchMovies() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'movies.xml', true);
+            xhr.onload = function () {
+                if (this.status === 200) {
+                    displayMovies(this.responseXML);
+                }
+            };
+            xhr.send();
+        }
+
+        function displayMovies(xml) {
+            const movies = xml.getElementsByTagName('movie');
+            const movieList = document.getElementById('movieList');
+            movieList.innerHTML = '';
+
+            for (let i = 0; i < movies.length; i++) {
+                const title = movies[i].getElementsByTagName('title')[0].childNodes[0].nodeValue;
+                const genre = movies[i].getElementsByTagName('genre')[0].childNodes[0].nodeValue;
+                const releaseYear = movies[i].getElementsByTagName('releaseYear')[0].childNodes[0].nodeValue;
+
+                const movieDiv = document.createElement('div');
+                movieDiv.classList.add('movie');
+
+                movieDiv.innerHTML = `
+                    <h2>${title}</h2>
+                    <p>Genre: ${genre}</p>
+                    <p>Release Year: ${releaseYear}</p>
+                `;
+
+                movieList.appendChild(movieDiv);
+            }
+        }
+
+        function searchMovies() {
+            const input = document.getElementById('search').value.toLowerCase();
+            const movies = document.querySelectorAll('.movie');
+
+            movies.forEach(movie => {
+                const title = movie.querySelector('h2').textContent.toLowerCase();
+                const genre = movie.querySelector('p:nth-of-type(1)').textContent.toLowerCase();
+                const releaseYear = movie.querySelector('p:nth-of-type(2)').textContent.toLowerCase();
+
+                if (title.includes(input) || genre.includes(input) || releaseYear.includes(input)) {
+                    movie.style.display = 'block';
+                } else {
+                    movie.style.display = 'none';
+                }
+            });
+        }
+
+        window.onload = fetchMovies;
+    </script>
+</body>
+
+</html>
